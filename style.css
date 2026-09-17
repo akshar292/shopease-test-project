@@ -168,8 +168,9 @@ button {
 .product-grid {
     display: grid;
 
+    /* BUG: creates an excessively wide layout */
     grid-template-columns:
-        repeat(4, 1fr);
+        repeat(8, 1fr);
 
     gap: 25px;
 }

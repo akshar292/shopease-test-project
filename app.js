@@ -65,7 +65,6 @@ function displayProducts(list) {
 
 }
 
-
 function addToCart(productId) {
 
     const product =
@@ -75,10 +74,10 @@ function addToCart(productId) {
 
     if (!product) return;
 
-    cart.push(product);
+    // BUG: product cart mein add nahi ho raha
+    console.log("Product selected:", product.name);
 
     updateCart();
-
 }
 
 
@@ -140,10 +139,12 @@ function updateCart() {
 
 function removeFromCart(index) {
 
-    cart.splice(index, 1);
+    // BUG: removes the wrong item
+    if (cart.length > 0) {
+        cart.splice(0, 1);
+    }
 
     updateCart();
-
 }
 
 
