@@ -1,19 +1,34 @@
-
 let cart = [];
 
-const productGrid = document.getElementById("productGrid");
-const searchInput = document.getElementById("searchInput");
+const productGrid =
+    document.getElementById("productGrid");
 
-const cartBtn = document.getElementById("cartBtn");
-const cartModal = document.getElementById("cartModal");
-const closeCart = document.getElementById("closeCart");
+const searchInput =
+    document.getElementById("searchInput");
 
-const cartItems = document.getElementById("cartItems");
-const cartCount = document.getElementById("cartCount");
-const cartTotal = document.getElementById("cartTotal");
+const cartBtn =
+    document.getElementById("cartBtn");
 
-const themeBtn = document.getElementById("themeBtn");
-const checkoutBtn = document.getElementById("checkoutBtn");
+const cartModal =
+    document.getElementById("cartModal");
+
+const closeCart =
+    document.getElementById("closeCart");
+
+const cartItems =
+    document.getElementById("cartItems");
+
+const cartCount =
+    document.getElementById("cartCount");
+
+const cartTotal =
+    document.getElementById("cartTotal");
+
+const themeBtn =
+    document.getElementById("themeBtn");
+
+const checkoutBtn =
+    document.getElementById("checkoutBtn");
 
 
 function displayProducts(list) {
@@ -30,9 +45,11 @@ function displayProducts(list) {
 
     list.forEach(product => {
 
-        const card = document.createElement("div");
+        const card =
+            document.createElement("div");
 
-        card.className = "product-card";
+        card.className =
+            "product-card";
 
         card.innerHTML = `
 
@@ -42,7 +59,9 @@ function displayProducts(list) {
 
             <div class="product-info">
 
-                <h3>${product.name}</h3>
+                <h3>
+                    ${product.name}
+                </h3>
 
                 <div class="product-price">
                     ₹${product.price.toLocaleString("en-IN")}
@@ -62,35 +81,67 @@ function displayProducts(list) {
         productGrid.appendChild(card);
 
     });
-
 }
+
+
+/*
+====================================================
+BUG #1
+Wrong property name: productId instead of id
+====================================================
+*/
 
 function addToCart(productId) {
 
     const product =
         products.find(
-            item => item.id === productId
+            item => item.productId === productId
         );
 
-    if (!product) return;
+    if (!product) {
 
-    // BUG: product cart mein add nahi ho raha
-    console.log("Product selected:", product.name);
+        console.log(
+            "Product not found"
+        );
+
+        return;
+    }
+
+
+    /*
+    ================================================
+    BUG #2
+    Product is NOT pushed into cart
+    ================================================
+    */
+
+    console.log(
+        "Product selected:",
+        product.name
+    );
 
     updateCart();
 }
 
 
+/*
+====================================================
+UPDATE CART
+====================================================
+*/
+
 function updateCart() {
 
-    cartCount.textContent = cart.length;
+    cartCount.textContent =
+        cart.length;
 
     if (cart.length === 0) {
 
         cartItems.innerHTML =
             '<p class="empty-cart">Your cart is empty.</p>';
 
-        cartTotal.textContent = "0";
+        cartTotal.textContent =
+            "0";
 
         return;
     }
@@ -99,54 +150,74 @@ function updateCart() {
 
     let total = 0;
 
-    cart.forEach((product, index) => {
+    cart.forEach(
+        (product, index) => {
 
-        total += product.price;
+            total += product.price;
 
-        const item =
-            document.createElement("div");
+            const item =
+                document.createElement("div");
 
-        item.className = "cart-item";
+            item.className =
+                "cart-item";
 
-        item.innerHTML = `
+            item.innerHTML = `
 
-            <span>
-                ${product.icon}
-                ${product.name}
-            </span>
+                <span>
+                    ${product.icon}
+                    ${product.name}
+                </span>
 
-            <span>
-                ₹${product.price.toLocaleString("en-IN")}
+                <span>
+                    ₹${product.price.toLocaleString("en-IN")}
 
-                <button
-                    onclick="removeFromCart(${index})"
-                >
-                    ✕
-                </button>
-            </span>
+                    <button
+                        onclick="removeFromCart(${index})"
+                    >
+                        ✕
+                    </button>
+                </span>
 
-        `;
+            `;
 
-        cartItems.appendChild(item);
-
-    });
+            cartItems.appendChild(item);
+        }
+    );
 
     cartTotal.textContent =
         total.toLocaleString("en-IN");
-
 }
 
 
+/*
+====================================================
+BUG #3
+Wrong item is removed
+====================================================
+*/
+
 function removeFromCart(index) {
 
-    // BUG: removes the wrong item
     if (cart.length > 0) {
+
+        /*
+        BUG:
+        Always removes first item.
+        */
+
         cart.splice(0, 1);
     }
 
     updateCart();
 }
 
+
+/*
+====================================================
+BUG #4
+Search uses wrong property
+====================================================
+*/
 
 searchInput.addEventListener(
     "input",
@@ -158,66 +229,116 @@ searchInput.addEventListener(
                 .trim();
 
         const filtered =
-            products.filter(product =>
-                product.name
-                    .toLowerCase()
-                    .includes(query)
+            products.filter(
+                product => {
+
+                    /*
+                    BUG:
+                    product.title does not exist.
+                    */
+
+                    return product.title
+                        .toLowerCase()
+                        .includes(query);
+                }
             );
 
         displayProducts(filtered);
-
     }
 );
 
+
+/*
+====================================================
+CART OPEN
+====================================================
+*/
 
 cartBtn.addEventListener(
     "click",
     function () {
 
-        cartModal.classList.remove("hidden");
-
+        cartModal.classList.remove(
+            "hidden"
+        );
     }
 );
 
+
+/*
+====================================================
+CART CLOSE
+====================================================
+*/
 
 closeCart.addEventListener(
     "click",
     function () {
 
-        cartModal.classList.add("hidden");
-
+        cartModal.classList.add(
+            "hidden"
+        );
     }
 );
 
+
+/*
+====================================================
+MODAL OUTSIDE CLICK
+====================================================
+*/
 
 cartModal.addEventListener(
     "click",
     function (event) {
 
-        if (event.target === cartModal) {
+        if (
+            event.target === cartModal
+        ) {
 
-            cartModal.classList.add("hidden");
-
+            cartModal.classList.add(
+                "hidden"
+            );
         }
-
     }
 );
 
+
+/*
+====================================================
+BUG #5
+Dark mode uses wrong class name
+====================================================
+*/
 
 themeBtn.addEventListener(
     "click",
     function () {
 
-        document.body.classList.toggle("dark");
+        /*
+        BUG:
+        CSS expects "dark".
+        */
+
+        document.body.classList.toggle(
+            "dark-mode"
+        );
 
         themeBtn.textContent =
-            document.body.classList.contains("dark")
+            document.body.classList.contains(
+                "dark-mode"
+            )
                 ? "☀️"
                 : "🌙";
-
     }
 );
 
+
+/*
+====================================================
+CHECKOUT
+====================================================
+*/
 
 checkoutBtn.addEventListener(
     "click",
@@ -225,23 +346,44 @@ checkoutBtn.addEventListener(
 
         if (cart.length === 0) {
 
-            alert("Your cart is empty.");
+            alert(
+                "Your cart is empty."
+            );
 
             return;
         }
+
+
+        /*
+        ============================================
+        BUG #6
+        Cart is not cleared after checkout
+        ============================================
+        */
 
         alert(
             "Order placed successfully! 🎉"
         );
 
+        /*
+        BUG:
+        Missing:
+
         cart = [];
-
         updateCart();
+        */
 
-        cartModal.classList.add("hidden");
-
+        cartModal.classList.add(
+            "hidden"
+        );
     }
 );
 
+
+/*
+====================================================
+INITIAL RENDER
+====================================================
+*/
 
 displayProducts(products);
