@@ -87,7 +87,13 @@ function displayProducts(list) {
 /*
 ====================================================
 BUG #1
-Wrong property name: productId instead of id
+Wrong product property used.
+
+Correct:
+item.id === productId
+
+Bug:
+item.productId === productId
 ====================================================
 */
 
@@ -109,10 +115,10 @@ function addToCart(productId) {
 
 
     /*
-    ================================================
+    =================================================
     BUG #2
-    Product is NOT pushed into cart
-    ================================================
+    Product is not added to cart.
+    =================================================
     */
 
     console.log(
@@ -192,18 +198,19 @@ function updateCart() {
 /*
 ====================================================
 BUG #3
-Wrong item is removed
+Wrong item gets removed.
+
+Correct:
+cart.splice(index, 1)
+
+Bug:
+cart.splice(0, 1)
 ====================================================
 */
 
 function removeFromCart(index) {
 
     if (cart.length > 0) {
-
-        /*
-        BUG:
-        Always removes first item.
-        */
 
         cart.splice(0, 1);
     }
@@ -215,7 +222,13 @@ function removeFromCart(index) {
 /*
 ====================================================
 BUG #4
-Search uses wrong property
+Search uses wrong product property.
+
+Correct:
+product.name
+
+Bug:
+product.title
 ====================================================
 */
 
@@ -231,11 +244,6 @@ searchInput.addEventListener(
         const filtered =
             products.filter(
                 product => {
-
-                    /*
-                    BUG:
-                    product.title does not exist.
-                    */
 
                     return product.title
                         .toLowerCase()
@@ -307,18 +315,19 @@ cartModal.addEventListener(
 /*
 ====================================================
 BUG #5
-Dark mode uses wrong class name
+Wrong dark mode class.
+
+CSS expects:
+dark
+
+Bug uses:
+dark-mode
 ====================================================
 */
 
 themeBtn.addEventListener(
     "click",
     function () {
-
-        /*
-        BUG:
-        CSS expects "dark".
-        */
 
         document.body.classList.toggle(
             "dark-mode"
@@ -355,23 +364,15 @@ checkoutBtn.addEventListener(
 
 
         /*
-        ============================================
+        =================================================
         BUG #6
-        Cart is not cleared after checkout
-        ============================================
+        Cart is NOT cleared after checkout.
+        =================================================
         */
 
         alert(
             "Order placed successfully! 🎉"
         );
-
-        /*
-        BUG:
-        Missing:
-
-        cart = [];
-        updateCart();
-        */
 
         cartModal.classList.add(
             "hidden"
