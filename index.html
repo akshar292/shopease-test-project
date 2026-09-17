@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ShopEase - Online Store</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="navbar">
+
+        <div class="logo">
+            🛍️ ShopEase
+        </div>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#products">Products</a>
+            <a href="#about">About</a>
+        </nav>
+
+        <div class="nav-actions">
+            <button id="themeBtn">🌙</button>
+            <button id="cartBtn">
+                🛒 Cart (<span id="cartCount">0</span>)
+            </button>
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <section id="home" class="hero">
+
+            <div class="hero-content">
+
+                <span class="badge">
+                    ✨ New Collection
+                </span>
+
+                <h1>
+                    Everything You Need,
+                    <span>All in One Place.</span>
+                </h1>
+
+                <p>
+                    Discover amazing products at great prices.
+                    Shop smarter with ShopEase.
+                </p>
+
+                <a href="#products" class="hero-btn">
+                    Shop Now →
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <section id="products" class="products-section">
+
+            <div class="section-header">
+
+                <div>
+                    <h2>Featured Products</h2>
+                    <p>Discover our most popular products</p>
+                </div>
+
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search products...">
+                </div>
+
+            </div>
+
+
+            <div id="productGrid" class="product-grid">
+
+            </div>
+
+        </section>
+
+
+        <section id="about" class="about">
+
+            <h2>Why ShopEase?</h2>
+
+            <div class="features">
+
+                <div class="feature">
+                    <div>🚚</div>
+                    <h3>Fast Delivery</h3>
+                    <p>Quick and reliable delivery.</p>
+                </div>
+
+                <div class="feature">
+                    <div>🔒</div>
+                    <h3>Secure Payment</h3>
+                    <p>Your payments are always protected.</p>
+                </div>
+
+                <div class="feature">
+                    <div>⭐</div>
+                    <h3>Quality Products</h3>
+                    <p>Carefully selected products.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <div id="cartModal" class="modal hidden">
+
+        <div class="cart-panel">
+
+            <div class="cart-header">
+
+                <h2>Your Cart</h2>
+
+                <button id="closeCart">✕</button>
+
+            </div>
+
+            <div id="cartItems">
+                <p class="empty-cart">
+                    Your cart is empty.
+                </p>
+            </div>
+
+            <div class="cart-footer">
+
+                <strong>
+                    Total: ₹<span id="cartTotal">0</span>
+                </strong>
+
+                <button id="checkoutBtn">
+                    Checkout
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <footer>
+
+        <div class="logo">
+            🛍️ ShopEase
+        </div>
+
+        <p>
+            © 2026 ShopEase. All rights reserved.
+        </p>
+
+    </footer>
+
+
+    <script src="products.js"></script>
+    <script src="app.js"></script>
+
+</body>
+
+</html>
